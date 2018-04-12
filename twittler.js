@@ -1,6 +1,6 @@
 function displayTweets(){
   var $body = $('body');
-  //$body.html('');
+  $('div').html('');
   var index = streams.home.length - 1;
   while(index >= 0){
     var tweet = streams.home[index];
@@ -13,9 +13,6 @@ function displayTweets(){
 
 
 $(document).ready(function(){
-  //var $body = $('body');
-  //$body.html('');
-
   $('#update-btn').on('click',displayTweets);
 });  
 
