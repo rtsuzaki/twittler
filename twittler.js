@@ -1,51 +1,49 @@
-function displayTweets(){
-  var $body = $('body');
-  $('.tweet').remove();    //getting an error since only clearing the div but not the buttons
-  var index = streams.home.length - 1;
-  while(index >= 0){
-    var tweet = streams.home[index];
-    var $tweet = $('<div class=tweet></div>');
-    var button = document.createElement("button");
-    button.className = 'tweet';
-    button.innerHTML = '@' + tweet.user;
-    var body = document.getElementsByTagName("body")[0];
-    body.appendChild(button);
-    button.addEventListener ("click", function() {
-      alert("did something");
-      //displayUserTweets(tweet.user)
-    });
-    $tweet.text('@' + tweet.user + ': ' + tweet.message + '--------' + tweet.created_at);
-    $tweet.appendTo($body);
-    index -= 1;
-  }
-}
-
-// function displayUserTweets(userName){
-//   var $body = $('body');
-//   $('div').html('');
-//   var index = streams.home.length - 1;
-//   while(index >= 0){
-//     if (streams.home[index].user === userName) {
-//       var tweet = streams.home[index];
-//       var $tweet = $('<div></div>');
-//       var button = document.createElement("button");
-//       button.innerHTML = '@' + tweet.user;
-//       var body = document.getElementsByTagName("body")[0];
-//       body.appendChild(button);
-//       button.addEventListener ("click", function() {
-//       alert("did something");
-//       });
-  
-//       $tweet.text('@' + tweet.user + ': ' + tweet.message + '--------' + tweet.created_at);
-//       $tweet.appendTo($body);
-//       index -= 1;
-//     }
-//   }
-// }
-
-
 $(document).ready(function(){
-  $('#update-btn').on('click',displayTweets);
-});  
+  displayTweets();
+
+  function displayTweets(names){
+    var $body = $('.feed');
+    $body.html('');
+    var index = streams.home.length - 1;
+    while(index >= 0){
+      var tweet = streams.home[index];
+      var $tweet = $('<div class="tweet"></div>');
+      var $tweetUser = $('<h2 class="tweetUser">@' + tweet.user + ':</div>');
+      $tweetUser.data('username',tweet.user);
+      $tweetUser.appendTo($tweet);
+      var $message = $('<p>' + tweet.message + '</p>');
+      $message.appendTo($tweet);
+      var $tweetTime = $('<h5>' + tweet.created_at + '</h5>');
+      $tweetTime.appendTo($tweet);
+      $tweet.appendTo($body);
+      index -=1;
+    }
+    $('#update-btn').click(displayTweets);
+
+    $('.tweetUser').click(function(event) {
+      window.scrollTo(0,0);
+      event.stopPropagation(); 
+      var $thisTweet = $(event.target);
+      var thisUser = $thisTweet.data('username');
+      var userFeed = streams.users[thisUser];
+      var index = userFeed.length - 1;
+      $body.html('');
+      while(index >= 0) {
+        var tweet = userFeed[index];
+        var $tweet = $('<div class="tweet"></div>');
+        var $tweetUser = $('<h2 class="tweetUser">@' + tweet.user + ':</div>');
+        $tweetUser.data('username', tweet.user);
+        $tweetUser.appendTo($tweet);
+        var $tweetMessage = $('<p>' + tweet.message + '</p>');
+        $tweetMessage.appendTo($tweet);
+        var $tweetTimestamp = $('<h5>' + tweet.created_at + '</h5>');
+        $tweetTimestamp.appendTo($tweet);
+        $tweet.appendTo($body);
+        index -= 1;
+      }
+    });
+  }
+  //$('#update-btn').on('click',displayTweets)
+}); 
 
 
