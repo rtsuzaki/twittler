@@ -1,17 +1,35 @@
 body {
-  background-color: lightcyan;
-  margin: 10px;
-  padding: 10px;
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-} 
+	background-color: skyblue;
+}
 
-div {
-  background-color: white;
-  margin: 20px;
-  padding: 20px;
-  border-style: solid;
-  border-width: 2px;
-  width: 500px;
-  margin-left: 30%;
+header{
+	text-align:center;
+}
+
+h1{
+	color: white
+}
+
+.tweet-content{
+	border-style: solid;
+	text-align: center;
+	font-size:15px;
+	padding: 20px;
+	margin: 20px;
+	background-color: white;
+}
+.name {
+	font-size: 20px;
+	font-weight: bold;
+	padding-bottom:4px;
+}
+
+.time-created {
+	font-size: 12px;
+	font-style: italic;
+	padding-top:2px;
+}
+
+.highlighted {
+	background-color: skyblue;
 }
